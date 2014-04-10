@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Code-Syntax</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+    <link rel="stylesheet" href="../libs/pure/0.4.2/pure-min.css" />
+    <link rel="stylesheet" href="../libs/pure/themes/baby-blue-1.11.5.css" />
+    <style>
+      #code {
+        width: 400px;
+        height: 300px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="layout">
+      <div id="main">
+        <div class="content">
+          <form class="pure-form">
+            <fieldset>
+              <label for="command">Command</label>
+              <select id="command">
+                <option value="for">for</option>
+                <option value="foreach">foreach</option>
+                <option value="switch">switch</option>
+              </select>
+
+              <label for="language">Language</label>
+              <select id="language">
+                <option value="coffeescript">CoffeeScript</option>
+                <option value="javascript">JavaScript</option>
+              </select>
+            </fieldset>
+
+            <fieldset>
+              <textarea id="code"></textarea>
+            </fieldset>
+          </form>
+        </div>
+      </div>
+    </div>
+    <script src="../libs/jquery/2.1.0/jquery-2.1.0.min.js"></script>
+    <script>
+      $("#command, #language").on('change', function(event) {
+        var language = $('#language').val();
+        var command = $('#command').val();
+        var path = './' + language + '/' + command + '.txt';
+
+        $.ajax({
+          url: path,
+          async: false
+        }).done(function(data) {
+          $('#code').text(data);
+        });
+      });
+    </script>
+  </body>
+</html>
